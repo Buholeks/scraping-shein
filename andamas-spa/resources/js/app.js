@@ -9,6 +9,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Íconos que vas a usar
 import {
+  faLink,
+  faTimes,
+  faSearch,
+  faSpinner,
   faPeopleCarryBox,
   faPenToSquare,
   faTrashCan,
@@ -21,6 +25,10 @@ import {
 
 // Agrega los íconos a la librería
 library.add(
+  faLink,
+  faTimes,
+  faSearch,
+  faSpinner,
   faPeopleCarryBox,
   faPenToSquare,
   faTrashCan,
