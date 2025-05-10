@@ -11,21 +11,21 @@ class SheinController extends Controller
 {
     // app/Http/Controllers/Api/SheinController.php
 
-    public function guardar(Request $request)
-    {
-        $producto = json_decode($request->input('producto'), true);
+    // public function guardar(Request $request)
+    // {
+    //     $producto = json_decode($request->input('producto'), true);
 
-        Producto::create([
-            'sku' => $producto['sku'],
-            'titulo' => $producto['title'],
-            'imagenes' => json_encode($producto['images']),
-            'url' => $producto['url'],
-            'precio' => $producto['price'] ?? null,
-            'precio_original' => $producto['price_original'] ?? null,
-        ]);
+    //     Producto::create([
+    //         'sku' => $producto['sku'],
+    //         'titulo' => $producto['title'],
+    //         'imagenes' => json_encode($producto['images']),
+    //         'url' => $producto['url'],
+    //         'precio' => $producto['price'] ?? null,
+    //         'precio_original' => $producto['price_original'] ?? null,
+    //     ]);
 
-        return response()->json(['mensaje' => 'Producto guardado con éxito.']);
-    }
+    //     return response()->json(['mensaje' => 'Producto guardado con éxito.']);
+    // }
 
 
     public function guardarLote(Request $request)
@@ -39,24 +39,27 @@ class SheinController extends Controller
             'productos.*.title' => 'required|string',
             'productos.*.price' => 'nullable|numeric',
             'productos.*.price_original' => 'nullable|numeric',
+            'productos.*.commission' => 'nullable|numeric',
+            'productos.*.total' => 'nullable|numeric',
             'productos.*.images' => 'nullable|array',
             'productos.*.images.0' => 'nullable|string',
         ]);
-    
+
         foreach ($request->productos as $p) {
             Producto::create([
                 'sku' => $p['sku'],
                 'titulo' => $p['title'],
                 'precio' => $p['price'],
                 'precio_original' => $p['price_original'],
+                'comision' => $p['commission'],
+                'total' => $p['total'],
                 'imagen' => $p['images'][0] ?? null,
                 'id_empresa' => $request->id_empresa,
                 'id_sucursal' => $request->id_sucursal,
                 'id_cliente' => $request->id_cliente // 👈 lo guardamos
             ]);
         }
-    
+
         return response()->json(['message' => 'Productos guardados']);
     }
-    
 }

@@ -345,6 +345,8 @@ const guardarTodos = async () => {
             title: (p.title || p.titulo)?.substring(0, 255),
             price: limpiarPrecio(p.price),
             price_original: limpiarPrecio(p.price_original),
+            commission: limpiarPrecio(p.commission),
+            total: limpiarPrecio(p.total),
             images: p.images ?? [],
         }));
 

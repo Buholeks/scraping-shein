@@ -20,6 +20,7 @@
                     <th class="px-4 py-3 text-center">Imagen</th>
                     <th class="px-4 py-3 text-left">Título</th>
                     <th class="px-4 py-3 text-left">SKU</th>
+                    <th class="px-4 py-3 text-left">Precio</th>
                     <th class="px-4 py-3 text-left">Estado</th>
                     <th class="px-4 py-3 text-center">Acción</th>
                 </tr>
@@ -39,6 +40,14 @@
                     </td>
                     <td class="px-4 py-2 font-medium">{{ producto.titulo }}</td>
                     <td class="px-4 py-2 text-gray-500">{{ producto.sku }}</td>
+                    <td class="p-1">
+                        {{
+                            new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                            }).format(producto.precio || 0)
+                        }}
+                    </td>
                     <td class="px-4 py-2 capitalize">
                         <span
                             class="inline-block px-2 py-1 text-xs rounded-full"

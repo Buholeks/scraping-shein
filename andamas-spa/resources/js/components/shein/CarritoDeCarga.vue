@@ -9,7 +9,7 @@
                     <th class="p-2 text-left">Título</th>
                     <th class="p-2 text-left">Precio</th>
                     <th class="p-2 text-left">Comision</th>
-                    <th class="p-2 text-left">Precio + Com</th>
+                    <th class="p-2 text-left">Total</th>
                     <th class="p-2 text-left text-red-400 line-through">
                         Precio
                     </th>

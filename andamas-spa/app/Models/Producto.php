@@ -12,9 +12,13 @@ class Producto extends Model
         'id_user',
         'id_cliente',
         'sku',
+        'marca',
+        'modelo',
         'titulo',
         'precio',
         'precio_original',
+        'comision',
+        'total',
         'imagen',
     ];
 

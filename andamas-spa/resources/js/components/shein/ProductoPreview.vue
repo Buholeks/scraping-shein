@@ -6,7 +6,9 @@
 
         <!-- Precio original (solo lectura) -->
         <div v-if="producto.price_original" class="w-100">
-            <label class="block text-sm font-medium text-gray-700">Precio original:</label>
+            <label class="block text-sm font-medium text-gray-700"
+                >Precio original:</label
+            >
             <input
                 :value="producto.price_original"
                 type="text"
@@ -18,7 +20,9 @@
         <!-- Precio actual (editable) -->
         <div class="flex">
             <div class="w-50 mr-2">
-                <label class="block text-sm font-medium text-gray-700">Precio actual:</label>
+                <label class="block text-sm font-medium text-gray-700"
+                    >Precio actual:</label
+                >
                 <input
                     v-model="producto.price"
                     type="text"
@@ -27,12 +31,16 @@
                     @blur="formatPrice('price')"
                     @input="calculateCommission"
                 />
-                <p class="mt-1 text-xs text-gray-500">Puedes editar si quieres</p>
+                <p class="mt-1 text-xs text-gray-500">
+                    Puedes editar si quieres
+                </p>
             </div>
 
             <!-- Comisión (calculada automáticamente pero editable) -->
             <div class="w-50 mr-2">
-                <label class="block text-sm font-medium text-gray-700">Comisión:</label>
+                <label class="block text-sm font-medium text-gray-700"
+                    >Comisión:</label
+                >
                 <input
                     v-model="producto.commission"
                     type="text"
@@ -40,13 +48,20 @@
                     @blur="formatPrice('commission')"
                     @input="calculateTotal"
                 />
-                <p class="mt-1 text-xs text-gray-500">Comisión calculada automáticamente según el precio (editable)</p>
+                <p class="mt-1 text-xs text-gray-500">
+                    Comisión calculada automáticamente según el precio
+                    (editable)
+                </p>
             </div>
 
             <!-- Total (precio + comisión) -->
             <div class="w-50">
-                <label class="block text-sm font-medium text-gray-700">Total:</label>
-                <div class="mt-1 p-2 bg-gray-50 rounded-md border border-gray-200">
+                <label class="block text-sm font-medium text-gray-700"
+                    >Total:</label
+                >
+                <div
+                    class="mt-1 p-2 bg-gray-50 rounded-md border border-gray-200"
+                >
                     <span class="font-semibold">{{ formattedTotal }}</span>
                 </div>
             </div>
@@ -105,8 +120,11 @@ if (!props.producto.commission) {
 
 // Calcula la comisión
 const calculateCommission = () => {
-    const priceValue = parseFloat(props.producto.price?.replace(/[^\d.]/g, "")) || 0;
-    const rule = commissionRules.find((r) => priceValue >= r.min && priceValue <= r.max);
+    const priceValue =
+        parseFloat(props.producto.price?.replace(/[^\d.]/g, "")) || 0;
+    const rule = commissionRules.find(
+        (r) => priceValue >= r.min && priceValue <= r.max
+    );
     props.producto.commission = `$${(rule?.value || 0).toFixed(2)}`;
     calculateTotal(); // recalcular total al cambiar comisión
 };
@@ -124,7 +142,8 @@ const formatPrice = (field) => {
 // Guarda el total dentro del producto
 const calculateTotal = () => {
     const price = parseFloat(props.producto.price?.replace(/[^\d.]/g, "")) || 0;
-    const commission = parseFloat(props.producto.commission?.replace(/[^\d.]/g, "")) || 0;
+    const commission =
+        parseFloat(props.producto.commission?.replace(/[^\d.]/g, "")) || 0;
     props.producto.total = price + commission;
 };
 
