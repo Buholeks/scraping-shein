@@ -8,7 +8,11 @@
                     <th class="p-2 text-left">SKU</th>
                     <th class="p-2 text-left">Título</th>
                     <th class="p-2 text-left">Precio</th>
-                    <th class="p-2 text-left  text-red-400 line-through">Precio</th>
+                    <th class="p-2 text-left">Comision</th>
+                    <th class="p-2 text-left">Precio + Com</th>
+                    <th class="p-2 text-left text-red-400 line-through">
+                        Precio
+                    </th>
                     <th class="p-2 text-left">Acciones</th>
                 </tr>
             </thead>
@@ -26,7 +30,19 @@
                     <td class="p-1">{{ p.sku }}</td>
                     <td class="p-1">{{ p.title }}</td>
                     <td class="p-1">{{ p.price ?? "N/A" }}</td>
-                    <td class="p-1 text-red-400 line-through">{{ p.price_original ?? "N/A" }}</td>
+                    <td class="p-1">{{ p.commission ?? "N/A" }}</td>
+                    <td class="p-1">
+                        {{
+                            new Intl.NumberFormat("en-US", {
+                                style: "currency",
+                                currency: "USD",
+                            }).format(p.total || 0)
+                        }}
+                    </td>
+
+                    <td class="p-1 text-red-400 line-through">
+                        {{ p.price_original ?? "N/A" }}
+                    </td>
                     <td class="p-1">
                         <button
                             @click="$emit('eliminar', p.sku)"
