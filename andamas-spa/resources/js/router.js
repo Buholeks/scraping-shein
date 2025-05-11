@@ -11,6 +11,13 @@ const routes = [
     meta: { guestOnly: true }
   },
   {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/Register.vue'),
+    meta: { guestOnly: true }
+  },
+
+  {
     path: '/app', // Ruta base para el layout autenticado
     component: () => import('@/layout/AppLayout.vue'),
     meta: { requiresAuth: true },
