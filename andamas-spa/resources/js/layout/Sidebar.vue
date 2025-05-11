@@ -18,7 +18,7 @@
         <!-- Sidebar -->
         <div
             :class="[
-                'fixed top-0 left-0 h-full w-50 bg-gray-800 text-white z-50 transition-transform duration-300 ease-in-out',
+                'fixed top-0 left-0 h-full w-52 bg-gray-800 text-white z-50 transition-transform duration-300 ease-in-out',
                 { '-translate-x-full': !isOpen },
                 'md:translate-x-0 md:relative md:block',
             ]"
