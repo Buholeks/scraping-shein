@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\VentaController;
 
 // 🟢 Rutas públicas
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
 
 // 🔒 Rutas protegidas con autenticación Sanctum
 Route::middleware('auth:sanctum')->group(function () {

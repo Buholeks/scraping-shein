@@ -15,15 +15,15 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-    
+
         if (!Auth::attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => ['Las credenciales proporcionadas son incorrectas.']
             ]);
         }
-    
+
         $user = Auth::user()->load(['empresa', 'sucursal', 'sucursalesAdicionales']);
-    
+
         // Verificar si el usuario está activo
         if (!$user->activo) {
             Auth::logout();
@@ -31,12 +31,12 @@ class AuthController extends Controller
                 'email' => ['Tu cuenta está desactivada.']
             ]);
         }
-    
+
         // Obtener todas las sucursales (principal + adicionales)
         $sucursales = collect([$user->sucursal])
             ->merge($user->sucursalesAdicionales)
             ->filter() // Elimina valores nulos
-            ->map(function($sucursal) {
+            ->map(function ($sucursal) {
                 return [
                     'id' => $sucursal->id,
                     'nombre' => $sucursal->nombre
@@ -45,9 +45,9 @@ class AuthController extends Controller
             ->unique('id') // Elimina duplicados
             ->values()
             ->toArray();
-    
+
         $token = $user->createToken('auth_token')->plainTextToken;
-    
+
         return response()->json([
             'token' => $token,
             'user' => [
@@ -72,5 +72,27 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Sesión cerrada exitosamente'
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+            'activo' => 'boolean'
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+            'activo' => $validated['activo'] ?? true,
+        ]);
+
+        return response()->json([
+            'message' => 'Usuario registrado correctamente',
+            'user' => $user
+        ], 201);
     }
 }
